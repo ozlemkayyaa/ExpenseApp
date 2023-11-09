@@ -51,26 +51,24 @@ class _ExpensesPageState extends State<ExpensesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const SizedBox(
-            height: 150,
-            child: Text("Grafik Bölümü"),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: expenses.length,
-                itemBuilder: (context, index) {
-                  return Text(expenses[index].name);
-                }),
-          ),
-          const SizedBox(
-            height: 150,
-            child: Text("Burası bottom bar."),
-          )
-        ]),
-      ),
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const SizedBox(
+          height: 150,
+          child: Text("Grafik Bölümü"),
+        ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: expenses.length,
+              itemBuilder: (context, index) {
+                return Text(expenses[index].name);
+              }),
+        ),
+        const SizedBox(
+          height: 150,
+          child: Text("Burası bottom bar."),
+        )
+      ]),
     );
   }
 }
