@@ -1,3 +1,4 @@
+import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -11,34 +12,37 @@ class NewExpense extends StatefulWidget {
 
 class _NewExpenseState extends State<NewExpense> {
   // TextEditingController sınıfı, metin alanlarını kontrol etmek için kullanılır.
-  final _expenseNameController =
-      TextEditingController(); // Harcama adını tutan bir TextEditingController değişkenidir.
-  final _expensePriceController =
-      TextEditingController(); // Harcama miktarını tutan bir TextEditingController değişkenidir.
-  var _selectedDate =
-      DateTime.now(); // Seçilen tarihi tutan bir DateTime değişkenidir.
+  final _expenseNameController = TextEditingController();
+  final _expensePriceController = TextEditingController();
+  DateTime? _selectedDate;
+  Category _selectedCategory = Category.work;
 
-  // Tarih seçiciyi açan ve seçilen tarihi _selectedDate değişkenine atayan bir fonksiyondur.
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        // showDatePicker() fonksiyonu, tarih seçiciyi açmak için kullanılır.
+  void _openDatePicker() async {
+    DateTime today = DateTime.now(); // 16.11.2023
+    // 2022, 11, 16
+    DateTime oneYearAgo = DateTime(today.year - 1, today.month, today.day);
+    // showDatePicker(
+    //         context: context,
+    //         initialDate: today,
+    //         firstDate: oneYearAgo,
+    //         lastDate: today)
+    // .then((value) {
+    //   async işlemden cevap ne zaman gelirse bu bloğu çalıştır..
+    //   print(value);
+    // });
+    // async function => await etmek
+    DateTime? selectedDate = await showDatePicker(
         context: context,
-        initialDate: _selectedDate,
-        firstDate: DateTime.now().subtract(const Duration(days: 365)),
-        lastDate: DateTime.now());
-
-    // initialDate parametresi, tarih seçicinin başlangıç tarihini ayarlamak için kullanılır.
-    // firstDate ve lastDate parametreleri, tarih seçicinin minimum ve maksimum tarihlerini ayarlamak için kullanılır.
-
-    if (picked != null && picked != _selectedDate) {
-      // picked != null && picked != _selectedDate koşulu,
-      // seçilen tarihin null olup olmadığını ve seçilen tarihin _selectedDate değişkenindeki tarihle aynı olup olmadığını kontrol eder.
-      setState(() {
-        _selectedDate =
-            picked; //  _selectedDate değişkenini picked değişkenine atar.
-      });
-    }
+        initialDate: _selectedDate == null ? today : _selectedDate!,
+        firstDate: oneYearAgo,
+        lastDate: today);
+    setState(() {
+      _selectedDate = selectedDate;
+    });
+    print(selectedDate);
+    print("Merhaba");
+    // sync => bir satır çalışmasını bitirmeden alt satıra geçemez.
+    // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
   }
 
   @override
@@ -48,34 +52,68 @@ class _NewExpenseState extends State<NewExpense> {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(children: [
-          // TextField: Kullanıcının harcama adı ve miktarını girmesine izin veren bir widget'tır.
           TextField(
             controller: _expenseNameController,
-            maxLength:
-                50, // metin alanına girilebilecek maksimum karakter sayısını belirlemek için kullanılır.
+            maxLength: 50,
             decoration: const InputDecoration(labelText: "Harcama Adı"),
-          ),
-          TextField(
-            controller: _expensePriceController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: "Harcama Miktarı"),
           ),
           Row(
             children: [
-              IconButton(
-                icon: const Icon(Icons.calendar_month),
-                onPressed: () => _selectDate(context),
+              Expanded(
+                child: TextField(
+                  controller: _expensePriceController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      labelText: "Harcama Miktarı", prefixText: "₺"),
+                ),
               ),
+              IconButton(
+                  onPressed: () => _openDatePicker(),
+                  icon: const Icon(Icons.calendar_month)),
+              // ternary operator
+              Text(_selectedDate == null
+                  ? "Tarih Seçiniz"
+                  : DateFormat.yMd().format(_selectedDate!)),
             ],
           ),
-          Text(DateFormat.yMMMMEEEEd().format(_selectedDate)),
-          ElevatedButton(
-            onPressed: () {
-              print(
-                  "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceController.text}");
-            },
-            child: const Text("Ekle"),
+          const SizedBox(
+            height: 30,
           ),
+          Row(
+            children: [
+              DropdownButton(
+                  value: _selectedCategory,
+                  items: Category.values.map((category) {
+                    return DropdownMenuItem(
+                        value: category, child: Text(category.name));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value != null) _selectedCategory = value;
+                    });
+                  })
+            ],
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Kapat")),
+              const SizedBox(
+                width: 12,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    print(
+                        "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceController.text}");
+                  },
+                  child: const Text("Ekle")),
+            ],
+          )
         ]),
       ),
     );

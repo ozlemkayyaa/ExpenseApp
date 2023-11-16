@@ -19,6 +19,8 @@ class ExpenseItem extends StatelessWidget {
                 Text(
                     "₺ ${expense.price.toStringAsFixed(2)}"), //string interpolation
                 const Spacer(), //eşit aralık bırakır,  flex: diye bir argüman alır orada verdiğin mesafeyi ayarlayabilrisin
+                Icon(categoryIcons[expense.category]),
+                const SizedBox(width: 6),
                 Text(
                   DateFormat.yMd().format(expense.date),
                 ),

@@ -13,8 +13,16 @@ class ExpensesPage extends StatefulWidget {
 
 class _ExpensesPageState extends State<ExpensesPage> {
   List<Expense> expenses = [
-    Expense(name: "Yemek", price: 500.595, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
+    Expense(
+        name: "Yemek",
+        price: 500.595,
+        date: DateTime.now(),
+        category: Category.food),
+    Expense(
+        name: "Udemy Kursu",
+        price: 200,
+        date: DateTime.now(),
+        category: Category.dress),
   ];
 
   @override
@@ -34,7 +42,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
         ),
         const SizedBox(
           height: 150,
-          child: Text("Burası bottom bar."),
+          child: Text("Burasi bottom bar."),
         )
       ]),
     );
