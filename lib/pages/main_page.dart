@@ -24,6 +24,8 @@ class _MainPageState extends State<MainPage> {
         category: Category.work),
   ];
 
+  List<Expense> insertExpenses = [];
+
   addExpense(Expense expense) {
     setState(() {
       expenses.add(expense);
@@ -32,7 +34,16 @@ class _MainPageState extends State<MainPage> {
 
   removeExpense(Expense expense) {
     setState(() {
+      insertExpenses.add(expense);
       expenses.remove(expense);
+    });
+  }
+
+  insertExpense(Expense expense) {
+    setState(() {
+      if (insertExpenses.isNotEmpty) {
+        addExpense(insertExpenses.last);
+      }
     });
   }
 
@@ -53,7 +64,7 @@ class _MainPageState extends State<MainPage> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: ExpensesPage(expenses, removeExpense),
+      body: ExpensesPage(expenses, removeExpense, insertExpense),
     );
   }
 }

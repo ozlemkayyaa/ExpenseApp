@@ -50,7 +50,9 @@ class _NewExpenseState extends State<NewExpense> {
                   controller: _expensePriceController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                      labelText: "Harcama Miktarı", prefixText: "₺"),
+                    labelText: "Harcama Miktarı",
+                    prefixText: "₺",
+                  ),
                 ),
               ),
               IconButton(
