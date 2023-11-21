@@ -1,30 +1,20 @@
-//import 'dart:math';
+import 'dart:math';
 
 import 'package:expenseapp/models/expense.dart';
 import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesPage extends StatefulWidget {
-  const ExpensesPage({Key? key}) : super(key: key);
+  const ExpensesPage(this.expenses, this.onRemove, {Key? key})
+      : super(key: key);
+  final List<Expense> expenses;
+  final void Function(Expense expense) onRemove;
 
   @override
   _ExpensesPageState createState() => _ExpensesPageState();
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
-  List<Expense> expenses = [
-    Expense(
-        name: "Yemek",
-        price: 500.595,
-        date: DateTime.now(),
-        category: Category.food),
-    Expense(
-        name: "Udemy Kursu",
-        price: 200,
-        date: DateTime.now(),
-        category: Category.dress),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,14 +25,24 @@ class _ExpensesPageState extends State<ExpensesPage> {
         ),
         Expanded(
           child: ListView.builder(
-              itemCount: expenses.length,
+              itemCount: widget.expenses.length,
               itemBuilder: (context, index) {
-                return ExpenseItem(expenses[index]);
+                return Dismissible(
+                  key: ValueKey(widget.expenses[index]),
+                  child: ExpenseItem(widget.expenses[index]),
+                  onDismissed: (direction) {
+                    // if (direction == DismissDirection.startToEnd) {
+                    //   // eğer soldan sağa kaydırılmışsa..
+                    // }
+                    //print(direction);
+                    widget.onRemove(widget.expenses[index]);
+                  },
+                );
               }),
         ),
         const SizedBox(
           height: 150,
-          child: Text("Burasi bottom bar."),
+          child: Text("Burası bottom bar."),
         )
       ]),
     );

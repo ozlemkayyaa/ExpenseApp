@@ -1,36 +1,23 @@
 import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key}) : super(key: key);
-
+  const NewExpense(this.onAdd, {Key? key}) : super(key: key);
+  final void Function(Expense expense) onAdd;
   @override
   _NewExpenseState createState() => _NewExpenseState();
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  // TextEditingController sınıfı, metin alanlarını kontrol etmek için kullanılır.
-  final _expenseNameController = TextEditingController();
-  final _expensePriceController = TextEditingController();
+  var _expenseNameController = TextEditingController();
+  var _expensePriceController = TextEditingController();
   DateTime? _selectedDate;
   Category _selectedCategory = Category.work;
 
   void _openDatePicker() async {
-    DateTime today = DateTime.now(); // 16.11.2023
-    // 2022, 11, 16
+    DateTime today = DateTime.now();
     DateTime oneYearAgo = DateTime(today.year - 1, today.month, today.day);
-    // showDatePicker(
-    //         context: context,
-    //         initialDate: today,
-    //         firstDate: oneYearAgo,
-    //         lastDate: today)
-    // .then((value) {
-    //   async işlemden cevap ne zaman gelirse bu bloğu çalıştır..
-    //   print(value);
-    // });
-    // async function => await etmek
     DateTime? selectedDate = await showDatePicker(
         context: context,
         initialDate: _selectedDate == null ? today : _selectedDate!,
@@ -39,7 +26,6 @@ class _NewExpenseState extends State<NewExpense> {
     setState(() {
       _selectedDate = selectedDate;
     });
-    print(selectedDate);
     print("Merhaba");
     // sync => bir satır çalışmasını bitirmeden alt satıra geçemez.
     // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
@@ -75,6 +61,8 @@ class _NewExpenseState extends State<NewExpense> {
                   ? "Tarih Seçiniz"
                   : DateFormat.yMd().format(_selectedDate!)),
             ],
+            // String?  a
+            // String => a!
           ),
           const SizedBox(
             height: 30,
@@ -108,12 +96,22 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    print(
-                        "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceController.text}");
+                    double? price =
+                        double.tryParse(_expensePriceController.text);
+
+                    // validation
+
+                    Expense expense = Expense(
+                        name: _expenseNameController.text,
+                        price: price!,
+                        date: _selectedDate!,
+                        category: _selectedCategory);
+                    widget.onAdd(expense);
+                    Navigator.pop(context);
                   },
                   child: const Text("Ekle")),
             ],
-          )
+          ),
         ]),
       ),
     );
