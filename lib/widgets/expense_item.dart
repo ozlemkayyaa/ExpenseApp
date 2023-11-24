@@ -2,10 +2,7 @@ import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-//14:10
 class ExpenseItem extends StatelessWidget {
-  // unnamed argument => default olarak required'dır
-  // named argument => belirtmek gerekir
   const ExpenseItem(this.expense, {Key? key}) : super(key: key);
   final Expense expense;
 
@@ -15,15 +12,17 @@ class ExpenseItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
-          Text(expense.name),
+          Text(expense.name, style: const TextStyle(color: Colors.white)),
           Row(
             children: [
-              Text(
-                  "₺ ${expense.price.toStringAsFixed(2)}"), // string interpolation
+              Text("₺ ${expense.price.toStringAsFixed(2)}",
+                  style: const TextStyle(
+                      color: Colors.white)), // string interpolation
               const Spacer(),
-              Icon(categoryIcons[expense.category]),
+              Icon(categoryIcons[expense.category], color: Colors.white),
               const SizedBox(width: 6),
-              Text(DateFormat.yMd().format(expense.date)),
+              Text(DateFormat.yMd().format(expense.date),
+                  style: const TextStyle(color: Colors.white)),
             ],
           )
         ]),

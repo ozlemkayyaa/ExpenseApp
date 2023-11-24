@@ -1,15 +1,15 @@
-import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
 enum Category { work, travel, food, dress }
 
 const categoryIcons = {
-  Category.work: Icons.work,
+  Category.work: Icons.work_outline_outlined,
   Category.travel: Icons.place_outlined,
-  Category.dress: Icons.abc,
-  Category.food: Icons.food_bank
+  Category.dress: Icons.checkroom_outlined,
+  Category.food: Icons.food_bank_outlined,
 };
 
 class Expense {
@@ -26,6 +26,19 @@ class Expense {
   final Category category;
 }
 
-// int,long => 1,2,3,4,5,99999999
+class CategoryExpenses {
+  const CategoryExpenses({required this.category, required this.expenses});
 
-// String => 2c7cf20e-5dbb-41ad-a9d0-124635f347ef, d1b6ee05-73c0-4924-9ed7-f3b2e50ee0a9
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalCategoryPrice {
+    double sum = 0;
+
+    expenses.forEach((expense) {
+      sum += expense.price;
+    });
+
+    return sum;
+  }
+}

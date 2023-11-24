@@ -24,8 +24,6 @@ class _MainPageState extends State<MainPage> {
         category: Category.work),
   ];
 
-  List<Expense> insertExpenses = [];
-
   addExpense(Expense expense) {
     setState(() {
       expenses.add(expense);
@@ -33,18 +31,25 @@ class _MainPageState extends State<MainPage> {
   }
 
   removeExpense(Expense expense) {
+    final deletingIndex = expenses.indexOf(expense);
     setState(() {
-      insertExpenses.add(expense);
       expenses.remove(expense);
     });
-  }
-
-  insertExpense(Expense expense) {
-    setState(() {
-      if (insertExpenses.isNotEmpty) {
-        addExpense(insertExpenses.last);
-      }
-    });
+    ScaffoldMessenger.of(context)
+        .clearSnackBars(); // o an ekrandaki tüm snackbarlari temizler..
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 3),
+      content: const Text("Harcama başarıyla silindi"),
+      action: SnackBarAction(
+          label: 'Geri Al',
+          onPressed: () {
+            setState(() {
+              expenses.insert(deletingIndex,
+                  expense); // insert => belirli bir indexe veri ekler
+              //expenses.add(expense);
+            });
+          }),
+    ));
   }
 
   @override
@@ -64,7 +69,9 @@ class _MainPageState extends State<MainPage> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: ExpensesPage(expenses, removeExpense, insertExpense),
+      body: expenses.length > 0
+          ? ExpensesPage(expenses, removeExpense)
+          : const Text("Henüz hiç bir harcama girmediniz.."),
     );
   }
 }
