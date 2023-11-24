@@ -27,8 +27,6 @@ class _NewExpenseState extends State<NewExpense> {
       _selectedDate = selectedDate;
     });
     print("Merhaba");
-    // sync => bir satır çalışmasını bitirmeden alt satıra geçemez.
-    // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
   }
 
   @override
@@ -63,8 +61,6 @@ class _NewExpenseState extends State<NewExpense> {
                   ? "Tarih Seçiniz"
                   : DateFormat.yMd().format(_selectedDate!)),
             ],
-            // String?  a
-            // String => a!
           ),
           const SizedBox(
             height: 30,
@@ -100,8 +96,6 @@ class _NewExpenseState extends State<NewExpense> {
                   onPressed: () {
                     double? price =
                         double.tryParse(_expensePriceController.text);
-
-                    // validation
 
                     Expense expense = Expense(
                         name: _expenseNameController.text,

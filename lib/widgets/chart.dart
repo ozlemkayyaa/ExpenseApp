@@ -74,7 +74,3 @@ class Chart extends StatelessWidget {
     );
   }
 }
-
-// container'a özel bir alan verilmedikçe, child'ın widget ı ne kadar alan kaplıyorsa o kadar alan tutar.
-// Bu yüzden container ın boyutu değişebilir, sabt kalmasını istiyorsan değer ver bebiş:)
-// double.infinity yapınca kaplaması gereken alan kadar kaplıyor.

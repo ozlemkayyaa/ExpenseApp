@@ -32,10 +32,6 @@ class _ExpensesPageState extends State<ExpensesPage> {
                   key: ValueKey(widget.expenses[index]),
                   child: ExpenseItem(widget.expenses[index]),
                   onDismissed: (direction) {
-                    // if (direction == DismissDirection.startToEnd) {
-                    //   // eğer soldan sağa kaydırılmışsa..
-                    // }
-                    //print(direction);
                     widget.onRemove(widget.expenses[index]);
                   },
                 );
@@ -45,6 +41,3 @@ class _ExpensesPageState extends State<ExpensesPage> {
     );
   }
 }
-
-// listeden veri silme ve alt başlıkları
-// theming ve alt başlıkları

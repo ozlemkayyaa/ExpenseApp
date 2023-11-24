@@ -35,8 +35,7 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       expenses.remove(expense);
     });
-    ScaffoldMessenger.of(context)
-        .clearSnackBars(); // o an ekrandaki tüm snackbarlari temizler..
+    ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(seconds: 3),
       content: const Text("Harcama başarıyla silindi"),
@@ -44,9 +43,7 @@ class _MainPageState extends State<MainPage> {
           label: 'Geri Al',
           onPressed: () {
             setState(() {
-              expenses.insert(deletingIndex,
-                  expense); // insert => belirli bir indexe veri ekler
-              //expenses.add(expense);
+              expenses.insert(deletingIndex, expense);
             });
           }),
     ));

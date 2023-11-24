@@ -15,9 +15,10 @@ class ExpenseItem extends StatelessWidget {
           Text(expense.name, style: const TextStyle(color: Colors.white)),
           Row(
             children: [
-              Text("₺ ${expense.price.toStringAsFixed(2)}",
-                  style: const TextStyle(
-                      color: Colors.white)), // string interpolation
+              Text(
+                "₺ ${expense.price.toStringAsFixed(2)}",
+                style: const TextStyle(color: Colors.white),
+              ),
               const Spacer(),
               Icon(categoryIcons[expense.category], color: Colors.white),
               const SizedBox(width: 6),
