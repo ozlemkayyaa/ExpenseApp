@@ -38,6 +38,7 @@ dependencies:
   uuid: ^4.2.1
   intl: ^0.18.1
   syncfusion_flutter_datepicker: ^23.1.44
+  flutter_riverpod: ^2.4.9
 
 dev_dependencies:
   flutter_test:
