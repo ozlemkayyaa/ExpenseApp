@@ -48,10 +48,11 @@ class Chart extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-        Theme.of(context).colorScheme.primary.withOpacity(0.4),
-        Theme.of(context).colorScheme.primary.withOpacity(0)
-      ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
+        gradient: LinearGradient(colors: [
+          Theme.of(context).colorScheme.primary.withOpacity(0.4),
+          Theme.of(context).colorScheme.primary.withOpacity(0)
+        ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+      ),
       child: Column(children: [
         Expanded(
             child: Row(

@@ -35,9 +35,11 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       expenses.remove(expense);
     });
+
     ScaffoldMessenger.of(context).clearSnackBars();
+
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
       content: const Text("Harcama başarıyla silindi"),
       action: SnackBarAction(
           label: 'Geri Al',
