@@ -6,6 +6,7 @@ ColorScheme colorScheme1 = ColorScheme.fromSeed(seedColor: Colors.purpleAccent);
 void main() {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: colorScheme1,

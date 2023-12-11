@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: expenses.length > 0
+      body: expenses.isNotEmpty
           ? ExpensesPage(expenses, removeExpense)
           : const Text("Henüz hiç bir harcama girmediniz.."),
     );

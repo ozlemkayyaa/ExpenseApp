@@ -10,8 +10,8 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  var _expenseNameController = TextEditingController();
-  var _expensePriceController = TextEditingController();
+  final _expenseNameController = TextEditingController();
+  final _expensePriceController = TextEditingController();
   DateTime? _selectedDate;
   Category _selectedCategory = Category.work;
 
@@ -26,12 +26,12 @@ class _NewExpenseState extends State<NewExpense> {
     setState(() {
       _selectedDate = selectedDate;
     });
-    print("Merhaba");
+    //print("Merhaba");
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(12.0),

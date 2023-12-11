@@ -35,10 +35,9 @@ class CategoryExpenses {
   double get totalCategoryPrice {
     double sum = 0;
 
-    expenses.forEach((expense) {
-      sum += expense.price;
-    });
-
+    for (int i = 0; i < expenses.length; i++) {
+      sum += expenses[i].price;
+    }
     return sum;
   }
 }
